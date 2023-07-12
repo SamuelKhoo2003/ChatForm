@@ -7,7 +7,7 @@
 <div> 
     {% for room in rooms %}
     <div> 
-        <h5>{{room.id}} -- {{room.name}}</h5>
+        <h5>{{room.id}} -- <a href="{% url 'room' room.id}">{{room.name}}</a></h5>
     </div>
 
     {% endfor %}
@@ -15,3 +15,6 @@
 </div>
 
 {% endblock %}
+
+<!-- the url room room.id method is useful if in future we decide to change the name of the name of the room in url, 
+by using this method we don't need to change each value each time, it will automatically update -->
