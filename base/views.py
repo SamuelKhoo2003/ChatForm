@@ -14,11 +14,11 @@ def home(request):
     return render(request, 'base/homepg.html', context)
 
 def room(request, pk): 
-    room = None
+    roomval = None
     for i in rooms:
         if i['id'] == int(pk):
-            room = i 
-    context = {'room':room}
+            roomval = i 
+    context = {'room': roomval}
     return render(request, 'base/roompg.html', context)
 
 # note the pk in rooms which is also used in urls
