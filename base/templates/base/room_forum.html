@@ -1,0 +1,15 @@
+<!--this template represents a forum for updating and creating a room--> 
+
+{% extends 'main.html' %}
+
+{% block content %}
+<div>
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <input type="submit" value="Submit" />  
+    </form>
+</div>
+{% endblock content %}
+
+<!-- the csrf token is needed as this makes sure that there is no malicious attempts, so this token is sent each time a forum is submitted and just ensures everything is running properly-->
