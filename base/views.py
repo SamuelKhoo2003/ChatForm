@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Room 
+from .forms import RoomForm
 # Create your views here.
 
 # rooms = [
@@ -25,5 +26,6 @@ def room(request, pk):
 # note the pk in rooms which is also used in urls, we can use pk as an id as it will always be unique
 
 def createroom(request):
-    context = {}
-    return render(request, 'base/room_forum.html', context)
+    form = RoomForm
+    context = {'form': form}
+    return render(request, 'base/room_form.html', context)
