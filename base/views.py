@@ -75,7 +75,7 @@ def home(request):
     room_count = rooms.count()
 
     # a future idea is to add in a follower system where you can filter out the activity to those which you follow
-    room_activity = Message.objects.all()
+    room_activity = Message.objects.filter(Q(room__topic__name__icontains=q))
 
     context = {'rooms':rooms, 'topics': topics, 'room_count': room_count, 'room_activity': room_activity}
     return render(request, 'base/homepg.html', context)
