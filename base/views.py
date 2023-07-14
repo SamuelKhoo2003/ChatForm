@@ -100,6 +100,18 @@ def room(request, pk):
     context = {'room': roomval, 'room_messages': room_messages, 'participants':participants}
     return render(request, 'base/roompg.html', context)
 
+
+def userprofile(request, pk): 
+    user = User.objects.get(id=pk)
+    rooms = user.room_set.all()
+    room_activity = user.message_set.all()
+    topics = Topic.objects.all()
+    context = {'user': user, 'rooms': rooms, 'topics': topics, 'room_activity': room_activity}
+    return render(request, 'base/profile.html', context)
+
+
+
+
 # note the pk in rooms which is also used in urls, we can use pk as an id as it will always be unique
 @login_required(login_url="login")
 def createroom(request):
