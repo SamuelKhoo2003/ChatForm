@@ -2,36 +2,57 @@
 
 {% block content %}
 
-<h1>{{room.name}}</h1>
+<style>
+    .room-container{
+        display: grid;
+        grid-template-columns: 3fr 1fr; 
+    }
+</style>
 
-<p>{{room.description}}</p>
+<div class="room-container">
+    <div>
+        <h1>{{room.name}}</h1>
+        <p>{{room.description}}</p>
 
-<div class="comment-wrapper">
-    <h3>Conversations</h3>
-    <hr>  
-
-    {% for message in room_messages %}
-        <div> 
-            <small>@{{message.user}}  {{message.created|timesince}} ago </small>
-            <p>{{message.body}}</p>
-            <hr> 
-
+        <div class="comment-wrapper">
+            <h3>Conversations</h3>
+            <hr>  
+            {% for message in room_messages %}
+                <div> 
+                    {% if request.user == message.user %}
+                    <a href="{% url 'delete-message' message.id %}">Delete</a>
+                     <!-- <a href="{% url 'edit-message' message.id %}">Edit</a> -->
+                    {% endif %}
+                    <small>@{{message.user}}  {{message.created|timesince}} ago </small>
+                    <p>{{message.body}}</p>
+                    <hr> 
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
+        <!-- we want only authenticated users to be able to access the form to input comments -->
+        {% if request.user.is_authenticated %}
+        <div class="comment-form">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <input type="text", name="body" placeholder="Enter your message..."/>
+            </form> 
+        </div>
+        {% endif %}
+    </div>
 
+    <div> 
+        <h3>Participants</h3>
+        <hr> 
+
+        {% for user in participants %}
+        <div> 
+            <p>@{{user.username}}</p>
+        </div>
+        {% endfor %}
+
+    </div>
 </div>
-
-
-<!-- we want only authenticated users to be able to access the form to input comments -->
-{% if request.user.is_authenticated %}
-<div class="comment-form">
-    <form method="POST" action="">
-        {% csrf_token %}
-        <input type="text", name="body" placeholder="Enter your message..."/>
-
-    </form> 
-
-</div>
-{% endif %}
 
 {% endblock %}
+
+

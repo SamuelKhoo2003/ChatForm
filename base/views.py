@@ -74,24 +74,30 @@ def home(request):
     topics = Topic.objects.all()
     room_count = rooms.count()
 
-    context = {'rooms':rooms, 'topics': topics, 'room_count': room_count}
+    # a future idea is to add in a follower system where you can filter out the activity to those which you follow
+    room_activity = Message.objects.all()
+
+    context = {'rooms':rooms, 'topics': topics, 'room_count': room_count, 'room_activity': room_activity}
     return render(request, 'base/homepg.html', context)
 
 def room(request, pk): 
     roomval = Room.objects.get(id=pk)
     room_messages = roomval.message_set.all().order_by('-created')
     # message_set.all means that messages related to the parent owner (in this case room) is called 
+    participants = roomval.participants.all()
     if request.method == 'POST': 
         message = Message.objects.create(
             user=request.user,
             room=roomval,
             body=request.POST.get('body')
         )
+        roomval.participants.add(request.user)
+        # this is a built in add function so then the user will be automatically added to the room they join 
         return redirect('room', pk=roomval.id)
         # note it is "objects" not object and also note that pk is roomval.id not room.id 
         # return redirect('home')
     
-    context = {'room': roomval, 'room_messages': room_messages}
+    context = {'room': roomval, 'room_messages': room_messages, 'participants':participants}
     return render(request, 'base/roompg.html', context)
 
 # note the pk in rooms which is also used in urls, we can use pk as an id as it will always be unique
@@ -136,3 +142,30 @@ def deleteroom(request, pk):
         room.delete()
         return redirect('home')
     return render(request, 'base/delete.html', {'obj':room})
+
+@login_required(login_url="login")
+def deletemessage(request, pk):
+    message = Message.objects.get(id=pk)
+
+    if request.user != message.user: 
+        return HttpResponse('Message user not found')
+    
+    if request.method == 'POST':
+        message.delete()
+        return redirect('home')
+    return render(request, 'base/delete.html', {'obj':message})
+
+
+# another future idea is to have an editting function fo
+# @login_required(login_url="login")
+# def editmessage(request, pk):
+#     message = Message.objects.get(id=pk)
+
+#     if request.user != message.user: 
+#         return HttpResponse('Message user not found')
+    
+#     if request.method == 'POST':
+#         message.delete()
+#         return redirect('home')
+#     return render(request, 'base/room_form.html', {'obj':message})
+
