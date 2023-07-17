@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+{% load static %}
+
 <html>
 
 <head> 
@@ -6,6 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content 'IE=edge'> 
     <title>ChatForm</title>
     <meta name="viewport" content="width=device-width, initial-scaled=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'styles/main.css' %}">
+    <!-- this is why it is useful to have a main template as it will apply to all the pages that extend from main.html -->
 </head>
 
 <body>
@@ -25,3 +30,6 @@
 
 </body>
 </html>
+
+<!-- we can also call images the same way we call the css files but this time using <img src="{% static 'images/[name of picture].jpg' %}" -->
+<!-- user uploaded pictures is a different case and cannot be directly called like this -->
