@@ -1,4 +1,4 @@
-- have a feature for adding new topics
+- have a feature for adding new topics (done)
 - include an edit message option 
 - include the creation of rooms and topics into the activity feed
 - Edit and Delete messages in activity feed
