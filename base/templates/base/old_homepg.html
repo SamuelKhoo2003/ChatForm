@@ -1,0 +1,38 @@
+{% extends 'main.html' %}   
+
+{% block content %}
+
+<style> 
+    .home-container{
+        display: grid; 
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+</style>
+
+
+<div class="home-container">
+
+    <div>
+        {% include 'components/topics_component.html' %}
+    </div>
+
+    <div>
+        <h5>{{room_count}} rooms available</h5>
+        <a href="{% url 'create-room' %}">Create Room</a>
+
+        <div> 
+            {% include 'components/room_component.html' %}
+        </div>
+    </div>
+
+    <div> 
+        {% include 'components/activity_feed.html' %}
+    </div>
+</div>
+
+{% endblock %}
+
+<!-- in the future, we could include the creation of rooms and modification of messages into the activity feed -->
+
+<!-- the url room room.id method is useful if in future we decide to change the name of the name of the room in url, 
+by using this method we don't need to change each value each time, it will automatically update -->
