@@ -30,7 +30,7 @@
       <div class="activities__boxContent">
         <p>replied to post “<a href="{% url 'room' message.room.id %}">{{message.room|truncatechars:12}}</a>”</p>
         <div class="activities__boxRoomContent">
-          {{message.body}}
+          {{message.body|truncatechars:35}}
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from .models import Room 
+from django.contrib.auth.models import User
 
 # this is how we create a form using the model form that is pre made 
 
@@ -12,4 +13,5 @@ class RoomForm(ModelForm):
 
 class UserForm(ModelForm): 
     class Meta: 
-        model = ['username', 'email']
+        model = User
+        fields = ['username', 'email']

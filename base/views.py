@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from .models import Room, Topic, Message
-from .forms import RoomForm
+from .forms import RoomForm, UserForm
 from django.http import HttpResponse
 # Create your views here.
 
@@ -185,7 +185,14 @@ def deletemessage(request, pk):
 
 @login_required(login_url="login")
 def updateruser(request):
-    return render(request, 'base/update_profile.html')
+    user = request.user
+    form = UserForm(instance=user)
+    if request.method == 'POST': 
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect ('user-profile', pk=user.id)
+    return render(request, 'base/update_profile.html', {'form': form})
 
 # another future idea is to have an editting function fo
 # @login_required(login_url="login")

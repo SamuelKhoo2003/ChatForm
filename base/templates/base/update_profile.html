@@ -21,26 +21,13 @@
             </div>
             <div class="layout__body">
               {% csrf_token %}
+                {% for field in form %}
                 <form class="form" action="#">
                     <div class="form__group">
-                        <label for="profile_pic">Avatar</label>
-                        <input id="profile_pic" name="profile_pic" type="file" />
+                        <label for="field_label">{{field.label}}</label>
+                        {{field}}
                     </div>
-
-          <div class="form__group">
-            <label for="username">Username</label>
-            <input id="username" name="username" type="text" placeholder="E.g. John doe" />
-          </div>
-
-          <div class="form__group">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="text" placeholder="E.g. john@email.com" />
-          </div>
-
-                    <div class="form__group">
-                        <label for="user_bio">Bio</label>
-                        <textarea name="user_bio" id="user_bio" placeholder="Write about yourself..."></textarea>
-                    </div>
+                {% endfor %}
                     <div class="form__action">
                         <a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}">Cancel</a>
                         <button class="btn btn--main" type="submit">Update</button>
