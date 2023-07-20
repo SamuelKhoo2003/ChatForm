@@ -118,14 +118,17 @@ def createroom(request):
     form = RoomForm()
     topics = Topic.objects.all()
     if request.method == 'POST':
-        print(request.POST)
-        form = RoomForm(request.POST)
-        if form.is_valid():
-            room_value = form.save(commit=False)
-            # commit=False gives us an instance of this room
-            room_value.host = request.user
-            room_value.save()
-            return redirect ('home')
+        topic_name = request.POST.get('topic')
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+
+        Room.objects.create(
+            host = request.user,
+            topic = topic, 
+            name = request.POST.get('name'),
+            description = request.POST.get('description'),
+        )
+        
+        return redirect ('home')
         
     context = {'form': form, 'topics': topics}
     return render(request, 'base/room_form.html', context)
@@ -135,17 +138,23 @@ def updateroom(request, pk):
     room = Room.objects.get(id=pk)
     form = RoomForm(instance=room)
     topics = Topic.objects.all()
-    if request.user != room.host: 
-        return HttpResponse('Room host not found')
-    
+    # if request.user != room.host: 
+    #     return HttpResponse('Room host not found')
+    # we no longer need this as we have removed the option for the edit and delete button from the front end if the user isnt the host
+
     if request.method == 'POST':
-        form = RoomForm(request.POST, instance=room)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
+        topic_name = request.POST.get('topic')
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+        room.name = request.POST.get('name')
+        room.topic = topic
+        room.description = request.POST.get('description')
+        room.save()
+        return redirect('home')
         
-    context = {'form': form, 'topics': topics}
+    context = {'form': form, 'topics': topics, 'room': room}
     return render(request, 'base/room_form.html', context)
+
+
 
 @login_required(login_url="login")
 def deleteroom(request, pk):
@@ -159,6 +168,8 @@ def deleteroom(request, pk):
         return redirect('home')
     return render(request, 'base/delete.html', {'obj':room})
 
+
+
 @login_required(login_url="login")
 def deletemessage(request, pk):
     message = Message.objects.get(id=pk)
@@ -171,6 +182,10 @@ def deletemessage(request, pk):
         return redirect('home')
     return render(request, 'base/delete.html', {'obj':message})
 
+
+@login_required(login_url="login")
+def updateruser(request):
+    return render(request, 'base/update_profile.html')
 
 # another future idea is to have an editting function fo
 # @login_required(login_url="login")

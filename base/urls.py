@@ -15,6 +15,8 @@ urlpatterns = [
     path('delete-room/<str:pk>/', views.deleteroom, name="delete-room"), 
     path('delete-message/<str:pk>/', views.deletemessage, name="delete-message"), 
     # path('edit-message/<str:pk>/', views.editmessage, name="edit-message"), 
+
+    path('update-user/', views.updateruser, name="update-user"), 
 ]
 
 #pk is for the primary key which is basically like an ID
