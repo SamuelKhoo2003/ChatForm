@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
 ]
 
+AUTH_USER_MODEL = 'base.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -109,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kuala_Lumpur'
 
 USE_I18N = True
 
@@ -121,9 +123,17 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/images/'
+
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
+
 ]
+
+MEDIA_ROOT = BASE_DIR / 'static/images'
+# normally in the industry you would store this in something like a cloud service or AWS bucket
+
 
 # STATIC_ROOT = []
 

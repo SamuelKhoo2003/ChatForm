@@ -1,6 +1,5 @@
 from django.forms import ModelForm
-from .models import Room 
-from django.contrib.auth.models import User
+from .models import Room, User
 
 # this is how we create a form using the model form that is pre made 
 
