@@ -92,7 +92,9 @@
           <div class="room__details">
             {{room.description}}
           </div>
+          <a href="{% url 'home' %}?q={{room.topic.name}}">
           <span class="room__topics">{{room.topic}}</span>
+        </a>
         </div>
         <div class="room__conversation">
           <div class="threads scroll">

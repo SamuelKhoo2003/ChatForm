@@ -214,5 +214,6 @@ def topicspage(request):
     return render(request, 'base/topics.html', {'topics':topics, 'rooms': rooms})
 
 def activitiespage(request): 
-    room_messages = Message.objects.all()
-    return render(request, 'base/activity.html', {})
+    room_activity = Message.objects.all()[0:4]
+    return render(request, 'base/activity.html', {"room_activity": room_activity})
+# in future we can add a scroll function in this section instead of just limitting to th first 4 activities on the screen 
