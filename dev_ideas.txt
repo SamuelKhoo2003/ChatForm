@@ -2,5 +2,4 @@
 - include an edit message option 
 - include the creation of rooms and topics into the activity feed
 - include decluttering features (reduce the number of rooms and activities initially shown, maybe an more tab or arrow down to extend)
-- Edit and Delete messages in activity feed
 - include a follower system where you can switch your feed to show a version which only displays content from individuals you follow 
