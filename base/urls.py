@@ -17,6 +17,8 @@ urlpatterns = [
     # path('edit-message/<str:pk>/', views.editmessage, name="edit-message"), 
 
     path('update-user/', views.updateruser, name="update-user"), 
+    path('topics-page/', views.topicspage, name="topics-page"),
+    path('activities-page/', views.activitiespage, name="activities-page"),
 ]
 
 #pk is for the primary key which is basically like an ID

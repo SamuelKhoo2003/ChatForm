@@ -71,7 +71,7 @@ def home(request):
         Q(name__icontains=q) |
         Q(description__icontains=q)  
     )
-    topics = Topic.objects.all()
+    topics = Topic.objects.all()[0:5]
     room_count = rooms.count()
 
     # a future idea is to add in a follower system where you can filter out the activity to those which you follow
@@ -207,3 +207,12 @@ def updateruser(request):
 #         return redirect('home')
 #     return render(request, 'base/room_form.html', {'obj':message})
 
+def topicspage(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    topics = Topic.objects.filter(name__icontains=q)
+    rooms = Room.objects.all()
+    return render(request, 'base/topics.html', {'topics':topics, 'rooms': rooms})
+
+def activitiespage(request): 
+    room_messages = Message.objects.all()
+    return render(request, 'base/activity.html', {})
