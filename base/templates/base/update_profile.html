@@ -20,14 +20,14 @@
                 </div>
             </div>
             <div class="layout__body">
-              {% csrf_token %}
-                {% for field in form %}
-                <form class="form" action="#">
-                    <div class="form__group">
-                        <label for="field_label">{{field.label}}</label>
-                        {{field}}
-                    </div>
-                {% endfor %}
+                <form class="form" action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form__group">
+                            <label for="field_label">{{field.label}}</label>
+                            {{field}}
+                        </div>
+                        {% endfor %}
                     <div class="form__action">
                         <a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}">Cancel</a>
                         <button class="btn btn--main" type="submit">Update</button>

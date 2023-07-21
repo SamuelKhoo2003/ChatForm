@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from .models import Room, Topic, Message, User
-from .forms import RoomForm, UserForm
+from .forms import RoomForm, UserForm, MyUserCreationForm
 from django.http import HttpResponse
 # Create your views here.
 
@@ -23,23 +22,23 @@ def loginpage(request):
     
     # note do not call login, as login is a built in function and calling/name it login may cause clashes 
     if request.method == "POST":
-        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
 
         try: 
-            user = User.objects.get(username=username)
+            email = User.objects.get(email=email)
         except: 
             messages.error(request, 'User does not exist')
     # we are making use of django flash messages, which are messages which are stored inside of django and stored in only 1 browser refresh 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
         # this is verifiying whether the user exists
 
         if user is not None: 
-            login(request, user)
+            login(request, email)
             return redirect('home')
         
         else:
-            messages.error(request, 'Username or Password is incorrect, please try again.')
+            messages.error(request, 'Email or Password is incorrect, please try again')
 
     context = {'page':page}
     return render(request, 'base/login_register.html', context)
@@ -49,9 +48,9 @@ def logoutuser(request):
     return redirect ('home')
 
 def registeruser(request): 
-    form = UserCreationForm()
+    form = MyUserCreationForm()
     if request.method == "POST": 
-        form = UserCreationForm(request.POST)
+        form = MyUserCreationForm(request.POST)
         if form.is_valid(): 
             user = form.save(commit=False)
             # we want to be able to access the user right way hence we set commit to False, essentially freezing it in time
@@ -187,7 +186,7 @@ def updateruser(request):
     user = request.user
     form = UserForm(instance=user)
     if request.method == 'POST': 
-        form = UserForm(request.POST, instance=user)
+        form = UserForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             form.save()
             return redirect ('user-profile', pk=user.id)
