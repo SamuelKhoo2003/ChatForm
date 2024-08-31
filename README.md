@@ -51,7 +51,7 @@ ChatForm is a Django-based forum-style web application that prioritizes user exp
 ![ChatForm Home](demo_assets/chatform_home.png)
 ![ChatForm Topics](demo_assets/chatform_topics.png)
 ![ChatForm Room](demo_assets/chatform_room.png)
-![ChatForm Edit Profile](demo_assest/chatform_edit_profile.png)
+![ChatForm Edit Profile](demo_assets/chatform_edit_profile.png)
 
 ## Installation and Setup
 
