@@ -5,7 +5,7 @@ ChatForm is a Django-based forum-style web application that prioritizes user exp
 [View the deployed application here](http://samuelkhoo.pythonanywhere.com/)
 
 <video width="600" controls>
-  <source src="assets/chatform.webm" type="video/webm">
+  <source src="demo_assets/chatform.webm" type="video/webm">
   Your browser does not support the video tag.
 </video>
 
