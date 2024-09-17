@@ -54,10 +54,10 @@ ChatForm is a Django-based forum-style web application that prioritizes user exp
 
 
 ## A Quick Demo Of Chatform!
-![ChatForm Home](demo_assets\chatform_home.png)
-![ChatForm Topics](demo_assets\chatform_topics.png)
-![ChatForm Room](demo_assets\chatform_room.png)
-![ChatForm Edit Profile](demo_assest\chatform_edit_profile.png)
+![ChatForm Home](demo_assets/chatform_home.png)
+![ChatForm Topics](demo_assets/chatform_topics.png)
+![ChatForm Room](demo_assets/chatform_room.png)
+![ChatForm Edit Profile](demo_assets/chatform_edit_profile.png)
 
 ## Installation and Setup
 
@@ -66,7 +66,7 @@ ChatForm is a Django-based forum-style web application that prioritizes user exp
 
   1. Clone the repository:
      ```bash
-     git clone https://github.com/yourusername/chatform.git
+     git clone https://github.com/SamuelKhoo2003/chatform.git
      ```
   2. Navigate to the project directory:
      ```bash
